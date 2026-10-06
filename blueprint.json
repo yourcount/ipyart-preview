@@ -1,0 +1,130 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "IPY ART — nieuw ontwerp (preview)",
+    "author": "IPY ART"
+  },
+  "landingPage": "/",
+  "login": true,
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "steps": [
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "extendable"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "gtranslate"
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "wpforms-lite"
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/ipyart-ontwerp.zip"
+      }
+    },
+    {
+      "step": "mkdir",
+      "path": "/wordpress/wp-content/mu-plugins/ipyart-preview"
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/mu-plugins/ipyart-preview.php",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/mu/ipyart-preview.php"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/mu-plugins/no-lazy.php",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/mu/no-lazy.php"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/mu-plugins/wpforms-demo.php",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/mu/wpforms-demo.php"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/mu-plugins/ipyart-preview/live.css",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/mu/ipyart-preview/live.css"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/wp-content/mu-plugins/ipyart-preview/poppins.woff2",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/mu/ipyart-preview/poppins.woff2"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "ipyart",
+        "blogdescription": "Art to remember",
+        "permalink_structure": "/%postname%/"
+      }
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "nl_NL"
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/ipy-seed.json",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/seed.json"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/ipy-seed.php",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/seed.php"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/wordpress/ipy-logo.png",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/yourcount/ipyart-preview/main/logo-ipy-art.png"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require '/wordpress/ipy-seed.php';"
+    }
+  ]
+}
