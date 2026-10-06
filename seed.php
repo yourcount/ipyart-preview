@@ -58,20 +58,16 @@ foreach ( $seed['parts'] as $slug => $content ) {
 	wp_set_object_terms( $id, $slug, 'wp_template_part_area' );
 }
 
-// Voorbeeldgedichten (tijdelijke tekst).
-$gedichten = array(
-	array( 'Voorbeeld: Herboren', '[Voorbeeldgedicht, vervang door een gedicht van Iris]<br>Regel twee van het gedicht<br>Regel drie, iets langer dan de rest<br>En een laatste regel' ),
-	array( 'Voorbeeld: Licht', '[Voorbeeldgedicht]<br>Waar het licht valt<br>valt ook schaduw<br>en daartussen jij' ),
-	array( 'Voorbeeld: Waddenzee', '[Voorbeeldgedicht]<br>Eb en vloed<br>komen en gaan<br>zoals jij en ik' ),
-);
-foreach ( $gedichten as $i => $g ) {
+// Gedichten van Iris.
+foreach ( $seed['gedichten'] ?? array() as $i => $g ) {
 	wp_insert_post(
 		array(
 			'post_type'    => 'gedicht',
 			'post_status'  => 'publish',
-			'post_title'   => $g[0],
-			'post_date'    => gmdate( 'Y-m-d H:i:s', time() - ( $i + 1 ) * DAY_IN_SECONDS ),
-			'post_content' => '<!-- wp:paragraph {"className":"is-style-gedicht"} --><p class="is-style-gedicht">' . $g[1] . '</p><!-- /wp:paragraph -->',
+			'post_name'    => $g['slug'],
+			'post_title'   => $g['title'],
+			'post_date'    => gmdate( 'Y-m-d H:i:s', time() - $i * DAY_IN_SECONDS ),
+			'post_content' => '<!-- wp:paragraph {"className":"is-style-gedicht"} --><p class="is-style-gedicht">' . implode( '<br>', array_map( 'esc_html', $g['regels'] ) ) . '</p><!-- /wp:paragraph -->',
 		)
 	);
 }
