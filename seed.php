@@ -72,6 +72,36 @@ foreach ( $seed['gedichten'] ?? array() as $i => $g ) {
 	);
 }
 
+// Werk (schilderijen en opdrachten) en agenda. Foto's blijven in de preview op ipyart.com staan.
+$content = $seed['content'] ?? array();
+foreach ( $content['werken'] ?? array() as $w ) {
+	$id = wp_insert_post(
+		array(
+			'post_type'  => 'werk',
+			'post_status' => 'publish',
+			'post_title' => $w['titel'],
+			'menu_order' => $w['volgorde'],
+		)
+	);
+	update_post_meta( $id, 'ipyart_formaat', $w['formaat'] );
+	update_post_meta( $id, 'ipyart_techniek', $w['techniek'] ?? '' );
+	update_post_meta( $id, 'ipyart_status', $w['status'] ?? 'beschikbaar' );
+	update_post_meta( $id, 'ipyart_foto_extern', $w['foto'] );
+	if ( ! empty( $w['referentie'] ) ) {
+		update_post_meta( $id, 'ipyart_ref_extern', $w['referentie'] );
+	}
+	wp_set_object_terms( $id, $w['serie'], 'werk_serie' );
+}
+foreach ( $content['agenda'] ?? array() as $a ) {
+	$id = wp_insert_post( array( 'post_type' => 'agenda_item', 'post_status' => 'publish', 'post_title' => $a['titel'] ) );
+	foreach ( array( 'soort', 'start', 'eind', 'locatie', 'tijd', 'tekst', 'extra', 'datumtekst' ) as $k ) {
+		update_post_meta( $id, 'ipyart_' . $k, $a[ $k ] ?? '' );
+	}
+	if ( ! empty( $a['foto'] ) ) {
+		update_post_meta( $id, 'ipyart_foto_extern', $a['foto'] );
+	}
+}
+
 // Logo (meegeleverd in het pakket).
 $logo_file = '/wordpress/ipy-logo.png';
 if ( file_exists( $logo_file ) ) {
