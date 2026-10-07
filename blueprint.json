@@ -24,8 +24,8 @@
     {
       "step": "installPlugin",
       "pluginData": {
-        "resource": "wordpress.org/plugins",
-        "slug": "gtranslate"
+        "resource": "url",
+        "url": "https://downloads.wordpress.org/plugin/gtranslate.3.0.7.zip"
       }
     },
     {

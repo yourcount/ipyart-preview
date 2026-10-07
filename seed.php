@@ -119,6 +119,9 @@ if ( file_exists( $logo_file ) ) {
 	}
 }
 
+// GTranslate zoals op de echte site: vlaggendropdown, Nederlands, alleen NL en EN.
+$gt = get_option( 'GTranslate', array() ); $gt['widget_look'] = 'dropdown_with_flags'; $gt['default_language'] = 'nl'; $gt['incl_langs'] = array( 'nl', 'en' ); $gt['fincl_langs'] = array( 'nl', 'en' ); update_option( 'GTranslate', $gt );
+
 update_option( 'ipyart_ontwerp_modus', 'live' );
 update_option( 'ipyart_popup', 'aan' );
 flush_rewrite_rules();
