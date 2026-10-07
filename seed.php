@@ -102,6 +102,12 @@ foreach ( $content['agenda'] ?? array() as $a ) {
 	}
 }
 
+foreach ( $content['reviews'] ?? array() as $r ) {
+	$id = wp_insert_post( array( 'post_type' => 'review', 'post_status' => 'publish', 'post_title' => $r['naam'], 'menu_order' => $r['volgorde'] ) );
+	update_post_meta( $id, 'ipyart_review', $r['tekst'] );
+	update_post_meta( $id, 'ipyart_review_over', $r['over'] ?? '' );
+}
+
 // Logo (meegeleverd in het pakket).
 $logo_file = '/wordpress/ipy-logo.png';
 if ( file_exists( $logo_file ) ) {
