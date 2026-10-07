@@ -94,7 +94,7 @@ foreach ( $content['werken'] ?? array() as $w ) {
 }
 foreach ( $content['agenda'] ?? array() as $a ) {
 	$id = wp_insert_post( array( 'post_type' => 'agenda_item', 'post_status' => 'publish', 'post_title' => $a['titel'] ) );
-	foreach ( array( 'soort', 'start', 'eind', 'locatie', 'tijd', 'tekst', 'extra', 'datumtekst' ) as $k ) {
+	foreach ( array( 'soort', 'start', 'eind', 'locatie', 'tijd', 'tekst', 'extra', 'datumtekst', 'video' ) as $k ) {
 		update_post_meta( $id, 'ipyart_' . $k, $a[ $k ] ?? '' );
 	}
 	if ( ! empty( $a['foto'] ) ) {
